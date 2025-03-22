@@ -1,0 +1,50 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    
+    // OpenAPI (Swagger 대체)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+    
+    // Fluentd (선택적)
+    implementation 'org.fluentd:fluent-logger:0.3.4'
+
+    // Fluency (선택적)
+    implementation 'org.komamitsu:fluency-core:2.6.2'
+    implementation 'org.komamitsu:fluency-fluentd:2.6.2'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
